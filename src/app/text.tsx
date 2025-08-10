@@ -1,4 +1,5 @@
 import { useState } from "react"
+import DataGrid, { Column, RenderCellProps } from 'react-data-grid';
 
 interface User {
   id: number;
@@ -39,6 +40,28 @@ export default function CrudApp() {
     }
   }
 
+  const columns: readonly Column<User>[] = [
+    { key: 'name', name: 'Name' },
+    { key: 'email', name: 'Email' },
+    {
+      key: 'actions',
+      name: 'Actions',
+      renderCell: (props: RenderCellProps<User>) => {
+        const { row } = props;
+        return (
+          <div>
+            <button onClick={() => handleEdit(row)} className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 px-2 rounded ml-2">
+              Edit
+            </button>
+            <button onClick={() => handleDelete(row.id)} className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded ml-2">
+              Delete
+            </button>
+          </div>
+        );
+      },
+    },
+  ];
+
   return (
     <div className="p-4">
       <h1 className="text-2xl font-bold mb-4">Simple CRUD App</h1>
@@ -73,17 +96,7 @@ export default function CrudApp() {
           {editingId !== null ? "Update" : "Add"}
         </button>
       </form>
-      <ul>
-        {users.map(user => (
-          <li key={user.id} className="flex items-center justify-between mb-2">
-            <span>{user.name} ({user.email}) </span>
-            <div>
-              <button onClick={() => handleEdit(user)} className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 px-2 rounded ml-2">Edit</button>
-              <button onClick={() => handleDelete(user.id)} className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded ml-2">Delete</button>
-            </div>
-          </li>
-        ))}
-      </ul>
+      <DataGrid columns={columns} rows={users} />
     </div>
   )
 }
