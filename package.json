@@ -10,8 +10,10 @@
     "format": "biome format . --write"
   },
   "dependencies": {
+    "@types/react-data-grid": "^4.0.12",
     "next": "15.3.4",
     "react": "^19.0.0",
+    "react-data-grid": "^7.0.0-beta.57",
     "react-dom": "^19.0.0"
   },
   "devDependencies": {
