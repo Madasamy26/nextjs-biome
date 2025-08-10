@@ -10,7 +10,6 @@ export default function CrudApp() {
   const [users, setUsers] = useState<User[]>([])
   const [form, setForm] = useState({ name: "", email: "" })
   const [editingId, setEditingId] = useState<number | null>(null)
-  const [name,setName] = useState("asd")
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     setForm({ ...form, [e.target.name]: e.target.value })
@@ -41,10 +40,10 @@ export default function CrudApp() {
   }
 
   return (
-    <div>
-      <h1>Simple CRUD App</h1>
-      <form onSubmit={handleSubmit} style={{ marginTop: 20 }}>
-        <div>
+    <div className="p-4">
+      <h1 className="text-2xl font-bold mb-4">Simple CRUD App</h1>
+      <form onSubmit={handleSubmit} className="mb-4">
+        <div className="mb-4">
           <label>
             Name:
             <input
@@ -53,11 +52,11 @@ export default function CrudApp() {
               value={form.name}
               onChange={handleChange}
               required
-              style={{ marginLeft: 8 }}
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ml-2"
             />
           </label>
         </div>
-        <div style={{ marginTop: 10 }}>
+        <div className="mb-4">
           <label>
             Email:
             <input
@@ -66,20 +65,22 @@ export default function CrudApp() {
               value={form.email}
               onChange={handleChange}
               required
-              style={{ marginLeft: 8 }}
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ml-2"
             />
           </label>
         </div>
-        <button type="submit" style={{ marginTop: 16 }}>
+        <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
           {editingId !== null ? "Update" : "Add"}
         </button>
       </form>
-      <ul style={{ marginTop: 30 }}>
+      <ul>
         {users.map(user => (
-          <li key={user.id} style={{ marginBottom: 10 }}>
+          <li key={user.id} className="flex items-center justify-between mb-2">
             <span>{user.name} ({user.email}) </span>
-            <button onClick={() => handleEdit(user)} style={{ marginLeft: 8 }}>Edit</button>
-            <button onClick={() => handleDelete(user.id)} style={{ marginLeft: 8 }}>Delete</button>
+            <div>
+              <button onClick={() => handleEdit(user)} className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 px-2 rounded ml-2">Edit</button>
+              <button onClick={() => handleDelete(user.id)} className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded ml-2">Delete</button>
+            </div>
           </li>
         ))}
       </ul>
